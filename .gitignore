@@ -1,0 +1,32 @@
+# Zig
+zig-cache/
+zig-out/
+/release/
+/debug/
+/build/
+/build-*/
+
+# Project-specific binaries
+/bin/
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+
+# OS-specific files
+.DS_Store
+.directory
+desktop.ini
+Thumbs.db
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Debug files
+*.dSYM/
