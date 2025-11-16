@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allows manual runs from the GitHub UI -> Actions -> Run workflow
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          # Always use the latest Zig release
+          version: latest
+
+      - name: Show Zig version
+        run: zig version
+
+      - name: Run tests
+        run: zig build test --summary all
