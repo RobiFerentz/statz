@@ -92,3 +92,27 @@ test "linear regression returns error on singular matrix" {
     const y = [_]f64{ 2, 3, 4 };
     try std.testing.expectError(error.SingularMatrix, linearRegression(&x, &y));
 }
+
+test "linear regression returns 0 for both when graph is on the x-axis" {
+    const x = [_]f64{ 1, 2, 3, 4 };
+    const y = [_]f64{ 0, 0, 0, 0 };
+    const result = try linearRegression(&x, &y);
+    try std.testing.expectApproxEqAbs(result.m, 0.0, 1e-9);
+    try std.testing.expectApproxEqAbs(result.b, 0.0, 1e-9);
+}
+
+test "linear regression returns 0 slope and 1 intercept when graph y is always 1" {
+    const x = [_]f64{ 1, 2, 3, 4 };
+    const y = [_]f64{ 1, 1, 1, 1 };
+    const result = try linearRegression(&x, &y);
+    try std.testing.expectApproxEqAbs(result.m, 0.0, 1e-9);
+    try std.testing.expectApproxEqAbs(result.b, 1.0, 1e-9);
+}
+
+test "linear regression returns a slope of 1 and 01 intercept when graph y is always equal to x" {
+    const x = [_]f64{ 10, 20, 30, 40 };
+    const y = [_]f64{ 10, 20, 30, 40 };
+    const result = try linearRegression(&x, &y);
+    try std.testing.expectApproxEqAbs(result.m, 1.0, 1e-9);
+    try std.testing.expectApproxEqAbs(result.b, 0.0, 1e-9);
+}
